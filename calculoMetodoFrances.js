@@ -4,60 +4,46 @@
 // n = periodo (en meses)
 exports.calcularMetodoFrances = (capital, tasaInteres, plazo) => {
     let cuota = 0;
-    let meses = 0;
+    let mes = 0;
     let interes = 0;
     let tasaInteresDecimal = tasaInteres / 100;
     const cuotas = [];
+    let capitalAmortizado = 0;
 
 // Transformar los años en meses
     plazo = Math.round(plazo * 12);
 
 // Calcular la cuota
     cuota = (capital * tasaInteresDecimal) / (1 - (1 + tasaInteresDecimal) ** -plazo);
-
     cuota = cuota.toFixed(2);
-    console.log(cuota);
 
-    function metodoFrances(){
+    while (mes != plazo) {
+        // Obtener el interes por periodo
+        interes = (capital * tasaInteresDecimal);
+        interes = interes.toFixed(2);
 
+        //Obtener capital que se amortiza en la cuota
+        capitalAmortizado = cuota - interes;
+        capitalAmortizado = capitalAmortizado.toFixed(2);
 
-        cuotas.length = 0;
+        //Actualizar el mes(periodo)
+        mes++;
+
+        //Actualizar la deuda
+        capital -= capitalAmortizado;
+        capital = capital.toFixed(2);
+
+        // TODO: Verificar los calculos con valores decimales
+        //Almacenar los valores en el arreglo
+        cuotas.push({
+            mes,
+            capitalAmortizado,
+            interes,
+            cuota,
+            capital,
+        });
+    }
     
-        for (var count = 0; count < plazo; ++count)
-        { 
-        var intereses = 0;
-        var mensualCapital = 0;
-        
-            
-            console.log(" Mes:"  + (count + 1));
-            console.log("Cuotas:");
-    console.log(cuotas[cuota] = cuota);
-    
-    console.log("Deuda Pendiente:");
-    console.log(cuotas[capital] = capital);
-    
-    
-    
-    intereses = capital * tasaInteresDecimal;
-    console.log("Interes:");
-    console.log(cuotas[intereses] = intereses.toFixed(2));
-    mensualCapital = cuota - intereses ;
-    console.log("Capital:");
-    console.log(cuotas[mensualCapital]= mensualCapital.toFixed(2) );
-    
-    
-    
-    capital = capital - mensualCapital
-    capital = capital.toFixed(2);
-    
-    console.log("--------------------------------");
-        }
-        
-        
     return cuotas;
-    
-      }
-    
-      metodoFrances();
 };
 
