@@ -31,9 +31,9 @@ app.post("/prestamo", (req, res, next) => {
     const { monto, tasaInteres, periodo} = req.body;
     //console.log(req.body);
 
-    calcularMetodoFrances(monto, tasaInteres, periodo);
+    const cuotas = calcularMetodoFrances(monto, tasaInteres, periodo);
 
-    res.send("Peticion aceptada");
+    res.render("resultado_prestamo", { cuotas });
 });
 
 // Inicializar el servidor en un puerto en especifico
